@@ -12,7 +12,7 @@ namespace Bulkify.Repository.Repositories
 {
     public class GenericRepositories<T>:IGenericRepository<T> where T:BaseEntity
     {
-        private readonly BulkifyDbContext _context;
+        protected readonly BulkifyDbContext _context;
         public GenericRepositories(BulkifyDbContext context) 
         { 
             _context = context;
