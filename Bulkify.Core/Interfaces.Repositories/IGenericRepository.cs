@@ -9,7 +9,7 @@ namespace Bulkify.Core.Interfaces.Repositories
 {
     public interface IGenericRepository<T> where T : BaseEntity
     {
-        Task<T> GetByIdAsync(int id);
+        Task<T?> GetByIdAsync(int id);
         Task<IReadOnlyList<T>> ListAllAsync();
         void Add(T entity);
         void Update(T entity);
