@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bulkify.Core.Entities
 {
-    public class ProductRate
+    public class ProductRate: BaseEntity
     {
         public int Rate { get; set; }
         public DateTime Timestamp { get; set; }

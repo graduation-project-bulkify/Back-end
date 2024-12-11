@@ -13,7 +13,7 @@ namespace Bulkify.Repository.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<ProductRate> builder)
         {
-            builder.HasKey(pr => new { pr.CustomerId, pr.ProductId }); // Composite key
+            builder.HasKey(pr => pr.Id);
 
             builder.HasOne(pr => pr.Customer)
             .WithMany(c => c.ProductRates)
@@ -27,7 +27,9 @@ namespace Bulkify.Repository.Data.Configurations
 
             builder.Property(pr => pr.Timestamp)
                 .IsRequired()
-                .HasColumnType("datetime2"); // Or "datetime" depending on your precision needs
+                .HasColumnType("datetime2");
+
+            builder.HasIndex(pr => new { pr.CustomerId, pr.ProductId }).IsUnique(); 
         }
     }
 }
