@@ -8,7 +8,7 @@ namespace Bulkify.Core.Entities
 {
     public class ProductRate
     {
-        public double Rate { get; set; }
+        public int Rate { get; set; }
         public DateTime Timestamp { get; set; }
 
         // Foreign Keys
@@ -16,7 +16,7 @@ namespace Bulkify.Core.Entities
         public int ProductId { get; set; }
 
         // Navigation Properties
-        public Customer Customer { get; set; }
-        public Product Product { get; set; }
+        public required Customer Customer { get; set; }
+        public required Product Product { get; set; }
     }
 }

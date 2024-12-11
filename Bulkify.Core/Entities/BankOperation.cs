@@ -8,6 +8,6 @@ namespace Bulkify.Core.Entities
 {
     public class BankOperation: BaseEntity
     {
-        public string operation { get; set; }
+        public required string BankAccount { get; set; }
     }
 }

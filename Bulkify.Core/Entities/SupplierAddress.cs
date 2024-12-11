@@ -8,14 +8,14 @@ namespace Bulkify.Core.Entities
 {
     public class SupplierAddress: BaseEntity
     {
-        public string City { get; set; }
-        public string Street { get; set; }
-        public string HomeNumber { get; set; }
+        public required string City { get; set; }
+        public required string Street { get; set; }
+        public int HomeNumber { get; set; }
 
         // Foreign Key
         public int SupplierId { get; set; }
 
         // Navigation Property
-        public Supplier Supplier { get; set; }
+        public required Supplier Supplier { get; set; }
     }
 }

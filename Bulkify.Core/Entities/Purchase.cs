@@ -11,12 +11,14 @@ namespace Bulkify.Core.Entities
         public DateTime StartDate { get; set; }
         public DateTime EndDate { get; set; }
         public int Quantity { get; set; }
-        public string Status { get; set; }
+        public required string Status { get; set; }
 
         // Foreign Key
         public int ProductId { get; set; }
 
         // Navigation Property
-        public Product Product { get; set; }
+        public required Product Product { get; set; }
+        public required ICollection<CustomerPurchase> CustomerPurchases { get; set; }
+
     }
 }
