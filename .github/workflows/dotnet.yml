@@ -19,6 +19,6 @@ jobs:
       with:
         dotnet-version: 8.0.x
     - name: Restore dependencies
-      run: dotnet restore Bulkify/Bukify.sln
+      run: dotnet restore ../Bukify.sln
     - name: Build
-      run: dotnet build --no-restore Bulkify/Bukify.sln
+      run: dotnet build --no-restore ../Bukify.sln
