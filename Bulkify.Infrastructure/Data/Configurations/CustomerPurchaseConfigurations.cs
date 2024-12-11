@@ -13,7 +13,7 @@ namespace Bulkify.Repository.Data.Configurations
     {
         public void Configure(EntityTypeBuilder<CustomerPurchase> builder)
         {
-            builder.HasKey(cp => new { cp.PurchaseId, cp.CustomerId }); // PurchaseId and CustomerId as composite key
+            builder.HasKey(cp => cp.Id);
 
             builder.HasOne(cp => cp.Purchase)
                 .WithMany(cp => cp.CustomerPurchases)
@@ -30,6 +30,8 @@ namespace Bulkify.Repository.Data.Configurations
             builder.Property(cp => cp.PurchaseQuantity).IsRequired();
             builder.Property(cp => cp.Status).IsRequired();
             builder.Property(cp => cp.PaymentMethod).IsRequired();
+
+            builder.HasIndex(cp => new { cp.PurchaseId, cp.CustomerId }).IsUnique(); 
         }
     }
 }
