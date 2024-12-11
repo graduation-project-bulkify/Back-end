@@ -1,0 +1,6 @@
+@Bulkify_HostAddress = http://localhost:5138
+
+GET {{Bulkify_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
