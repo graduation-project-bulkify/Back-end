@@ -1,0 +1,14 @@
+# Build results
+bin/
+obj/
+
+# Visual Studio files
+.vs/
+
+# NuGet packages (if using packages.config)
+packages/
+
+# App settings secrets
+appsettings.json
+appsettings.Development.json
+appsettings.Production.json
