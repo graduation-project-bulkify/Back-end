@@ -20,7 +20,9 @@ jobs:
         dotnet-version: 8.0.x
     - name: get pwd
       run: pwd
+    - name: get ls
+      run: ls
     - name: Restore dependencies
-      run: dotnet restore ./Bukify.sln
+      run: dotnet restore ./Bulkify/Bukify.sln
     - name: Build
-      run: dotnet build --no-restore ./Bukify.sln
+      run: dotnet build --no-restore ./Bulkify/Bukify.sln
