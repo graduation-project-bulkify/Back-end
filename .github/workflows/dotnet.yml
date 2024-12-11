@@ -23,6 +23,6 @@ jobs:
     - name: get ls
       run: ls
     - name: Restore dependencies
-      run: dotnet restore ./Bulkify/Bukify.sln
+      run: dotnet restore ./Bulkify/Bulkify.sln
     - name: Build
-      run: dotnet build --no-restore ./Bulkify/Bukify.sln
+      run: dotnet build --no-restore ./Bulkify/Bulkify.sln
