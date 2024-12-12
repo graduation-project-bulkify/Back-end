@@ -16,6 +16,6 @@ namespace Bulkify.Core.Entities
         public int SupplierId { get; set; }
 
         // Navigation Property
-        public required Supplier Supplier { get; set; }
+        public Supplier Supplier { get; set; }
     }
 }
