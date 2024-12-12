@@ -12,6 +12,7 @@
 
   <ItemGroup>
     <ProjectReference Include="..\Bulkify.Core\Bulkify.Core.csproj" />
+    <ProjectReference Include="..\Bulkify.Service\Bulkify.Service.csproj" />
   </ItemGroup>
 
 </Project>
