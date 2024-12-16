@@ -9,7 +9,7 @@ using System.Threading.Tasks;
 
 namespace Bulkify.Service.Services
 {
-    public class AuthenticationService: IAuthenticationService
+    public class AuthenticationService : IAuthenticationService
     {
         private readonly ICustomerRepository _customerRepository;
         private readonly ISupplierRepository _supplierRepository;

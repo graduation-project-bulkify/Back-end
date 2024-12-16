@@ -84,6 +84,7 @@ namespace Bulkify.Repository.Data.Configurations
                 .HasForeignKey(pr => pr.CustomerId)
                 .OnDelete(DeleteBehavior.Cascade);
 
+          
 
             //Indexes
             builder.HasIndex(c => c.Email).IsUnique();

@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace Bulkify.Core.Entities
 {
-    public class Customer: BaseEntity
+    public class Customer : BaseEntity
     {
         public required string FirstName { get; set; }
         public required string LastName { get; set; }

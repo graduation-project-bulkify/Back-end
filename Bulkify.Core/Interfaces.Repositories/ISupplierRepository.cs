@@ -7,8 +7,11 @@ using System.Threading.Tasks;
 
 namespace Bulkify.Core.Interfaces.Repositories
 {
-    public interface ISupplierRepository: IGenericRepository<Supplier>
+    public interface ISupplierRepository : IGenericRepository<Supplier>
     {
+        Task<Supplier> GetSupplierByIdAsync(int id);
         Task<Supplier> GetSupplierByEmailAsync(string email);
+        Task AddProduct(Product product);
+
     }
 }

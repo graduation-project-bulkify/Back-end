@@ -12,6 +12,8 @@ namespace Bulkify.Repository.Repositories
 {
     public class SupplierRepository : GenericRepositories<Supplier>, ISupplierRepository
     {
+
+
         public SupplierRepository(BulkifyDbContext context) : base(context)
         {
         }
@@ -19,6 +21,14 @@ namespace Bulkify.Repository.Repositories
         public async Task<Supplier> GetSupplierByEmailAsync(string email)
         {
             return await _context.Suppliers.FirstOrDefaultAsync(s => s.Email == email);
+        }
+        public async Task<Supplier> GetSupplierByIdAsync(int id)
+        {
+            return await _context.Suppliers.FirstOrDefaultAsync(s => s.Id == id);
+        }
+        public async Task AddProduct(Product product)
+        {
+            await _context.Set<Product>().AddAsync(product);
         }
     }
 }

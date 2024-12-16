@@ -1,6 +1,7 @@
 ﻿using Bulkify.Core.Entities;
 using Bulkify.Core.Interfaces.Repositories;
 using Bulkify.Core.Interfaces.Services;
+using Bulkify.Repository.Repositories;
 using Bulkify.WebAPI.Models.RequestModels;
 using Bulkify.WebAPI.Models.ResponseModels;
 using Microsoft.AspNetCore.Identity;
@@ -11,23 +12,27 @@ namespace Bulkify.WebApi.Controllers
     public class SuppliersController : BaseApiController
     {
         private readonly ISupplierRepository _supplierRepository;
+        private readonly ICategoryRepository _categoryRepository;
         private readonly ITokenService _tokenService;
         private readonly IAuthenticationService _authenticationService;
         private readonly IPasswordHasher<Supplier> _passwordHasher;
         private readonly ILogger<SuppliersController> _logger;
+
 
         public SuppliersController(
             ISupplierRepository supplierRepository,
             ITokenService tokenService,
             IAuthenticationService authenticationService,
             IPasswordHasher<Supplier> passwordHasher,
-            ILogger<SuppliersController> logger)
+            ILogger<SuppliersController> logger,
+            ICategoryRepository categoryRepository)
         {
             _supplierRepository = supplierRepository;
             _tokenService = tokenService;
             _authenticationService = authenticationService;
             _passwordHasher = passwordHasher;
             _logger = logger;
+            _categoryRepository = categoryRepository;
         }
 
         [HttpPost("register")]
@@ -72,7 +77,7 @@ namespace Bulkify.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                 _logger.LogError(ex, "An error occurred during supplier registration.");
+                _logger.LogError(ex, "An error occurred during supplier registration.");
 
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
             }
@@ -93,7 +98,7 @@ namespace Bulkify.WebApi.Controllers
                     var supplier = await _supplierRepository.GetSupplierByEmailAsync(model.Email);
                     if (supplier == null)
                     {
-                        return NotFound("Email not found!!!!!"); 
+                        return NotFound("Email not found!!!!!");
                     }
 
                     var token = _tokenService.CreateToken(supplier, "Supplier");
@@ -104,11 +109,55 @@ namespace Bulkify.WebApi.Controllers
             }
             catch (Exception ex)
             {
-                
-                 _logger.LogError(ex, "An error occurred during supplier login.");
+
+                _logger.LogError(ex, "An error occurred during supplier login.");
 
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
             }
         }
+        [HttpPost("add-product")]
+        public async Task<IActionResult> AddProduct([FromBody] ProductAddModel model)
+        {
+            try
+            {
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                var supplier = await _supplierRepository.GetSupplierByIdAsync(model.SupplierId);
+                if (supplier == null)
+                    return NotFound("Supplier not found");
+
+                var category = await _categoryRepository.GetByIdAsync(model.CategoryId);
+                if (category == null)
+                    return NotFound("Category not found");
+
+                var product = new Product
+                {
+                    Name = model.Name,
+                    Price = model.Price,
+                    Quantity = model.Quantity,
+                    ImageSource = model.ImageSource,
+                    SupplierId = model.SupplierId,
+                    CategoryId = model.CategoryId,
+                    ApprovalStatus = false,
+                    Supplier = supplier,  // Load Supplier entity from DB
+                    Category = category  // Load Category entity from DB
+                };
+
+                // Add product to repository
+                _supplierRepository.AddProduct(product);
+                await _supplierRepository.SaveChangesAsync();
+
+                return Ok(new { Message = "Product added successfully", ProductId = product.Id });
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "An error occurred while adding a product.");
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
+            }
+        }
+
     }
 }
