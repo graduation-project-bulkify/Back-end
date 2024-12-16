@@ -57,8 +57,9 @@ var _loggerfactory = services.GetRequiredService<ILoggerFactory>();
 
 try
 {
-   await _context.Database.MigrateAsync();
-}catch(Exception ex)
+    await _context.Database.MigrateAsync();
+}
+catch (Exception ex)
 {
     var logger = _loggerfactory.CreateLogger<Program>();
     logger.LogError(ex, "error whil migrating");

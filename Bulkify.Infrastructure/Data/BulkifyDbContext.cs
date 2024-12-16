@@ -20,7 +20,7 @@ namespace Bulkify.Repository.Data
             modelBuilder.ApplyConfigurationsFromAssembly(Assembly.GetExecutingAssembly());
 
             base.OnModelCreating(modelBuilder);
-            
+
         }
 
         public DbSet<Customer> Customers { get; set; }
@@ -33,6 +33,7 @@ namespace Bulkify.Repository.Data
         public DbSet<Purchase> Purchases { get; set; }
         public DbSet<Admin> Admins { get; set; }
         public DbSet<BankOperation> BankAccounts { get; set; }
+
 
     }
 }

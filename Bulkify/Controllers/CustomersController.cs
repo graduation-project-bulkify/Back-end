@@ -22,7 +22,7 @@ namespace Bulkify.WebAPI.Controllers
             IAuthenticationService authenticationService,
             IPasswordHasher<Customer> passwordHasher,
             ILogger<CustomersController> logger)
-            
+
         {
             _customerRepository = customerRepository;
             _tokenService = tokenService;
@@ -104,7 +104,7 @@ namespace Bulkify.WebAPI.Controllers
             {
                 // Log the exception
                 // Example:
-                 _logger.LogError(ex, "An error occurred during customer login.");
+                _logger.LogError(ex, "An error occurred during customer login.");
 
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
             }
