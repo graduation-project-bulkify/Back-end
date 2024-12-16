@@ -7,8 +7,10 @@ using System.Threading.Tasks;
 
 namespace Bulkify.Core.Interfaces.Repositories
 {
-    public interface ICustomerRepository : IGenericRepository<Customer>
+    public interface ICategoryRepository : IGenericRepository<Category>
     {
-        Task<Customer?> GetCustomerByEmailAsync(string email);
+        Task<Customer?> GetCategoryByEmailAsync(string email);
+        Task<Category> GetCategoryByIdAsync(int id);
+
     }
 }

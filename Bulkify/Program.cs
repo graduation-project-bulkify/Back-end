@@ -25,6 +25,7 @@ builder.Services.AddDbContext<BulkifyDbContext>(options =>
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepositories<>));
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<ISupplierRepository, SupplierRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository >();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped(typeof(IPasswordHasher<>), typeof(PasswordHasher<>));
@@ -57,8 +58,9 @@ var _loggerfactory = services.GetRequiredService<ILoggerFactory>();
 
 try
 {
-   await _context.Database.MigrateAsync();
-}catch(Exception ex)
+    await _context.Database.MigrateAsync();
+}
+catch (Exception ex)
 {
     var logger = _loggerfactory.CreateLogger<Program>();
     logger.LogError(ex, "error whil migrating");

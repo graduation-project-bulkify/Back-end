@@ -19,8 +19,8 @@ namespace Bulkify.Core.Entities
         public int CategoryId { get; set; }
 
         // Navigation Properties
-        public required Supplier Supplier { get; set; }
-        public required Category Category { get; set; }
+        public  Supplier Supplier { get; set; }
+        public  Category Category { get; set; }
         public ICollection<CustomerPurchase>? CustomerPurchases { get; set; }
         public ICollection<ProductRate>? ProductRates { get; set; }
         public ICollection<Purchase>? Purchases { get; set; }
