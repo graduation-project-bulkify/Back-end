@@ -25,6 +25,7 @@ builder.Services.AddDbContext<BulkifyDbContext>(options =>
 builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepositories<>));
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<ISupplierRepository, SupplierRepository>();
+builder.Services.AddScoped<ICategoryRepository, CategoryRepository >();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped(typeof(IPasswordHasher<>), typeof(PasswordHasher<>));
