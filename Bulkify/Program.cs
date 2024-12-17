@@ -26,11 +26,13 @@ builder.Services.AddScoped(typeof(IGenericRepository<>), typeof(GenericRepositor
 builder.Services.AddScoped<ICustomerRepository, CustomerRepository>();
 builder.Services.AddScoped<ISupplierRepository, SupplierRepository>();
 builder.Services.AddScoped<ICategoryRepository, CategoryRepository >();
+builder.Services.AddScoped<IProductRepository, ProductRepository >();
 builder.Services.AddScoped<ITokenService, TokenService>();
 builder.Services.AddScoped<IAuthenticationService, AuthenticationService>();
 builder.Services.AddScoped(typeof(IPasswordHasher<>), typeof(PasswordHasher<>));
 builder.Services.AddScoped<ILogger<CustomersController>, Logger<CustomersController>>();
 builder.Services.AddScoped<ILogger<SuppliersController>, Logger<SuppliersController>>();
+builder.Services.AddScoped<ILogger<AdminController>, Logger<AdminController>>();
 
 
 builder.Services.AddAuthentication(JwtBearerDefaults.AuthenticationScheme)

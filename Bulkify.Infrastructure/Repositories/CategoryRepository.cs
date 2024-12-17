@@ -10,6 +10,16 @@ namespace Bulkify.Repository.Repositories
         {
         }
 
+        public async Task AddCategoryAsync(Category category)
+        {
+            await _context.Set<Category>().AddAsync(category);
+
+        }
+        public void DeleteCategory(Category category)
+        {
+            _context.Categories.Remove(category);
+        }
+
         public Task<Customer?> GetCategoryByEmailAsync(string email)
         {
             throw new NotImplementedException();
@@ -18,6 +28,7 @@ namespace Bulkify.Repository.Repositories
         public Task<Category> GetCategoryByIdAsync(int id)
         {
             return _context.Categories.FirstOrDefaultAsync(c => c.Id == id);
+
         }
     }
 }

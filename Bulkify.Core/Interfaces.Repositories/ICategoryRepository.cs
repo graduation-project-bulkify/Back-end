@@ -11,6 +11,11 @@ namespace Bulkify.Core.Interfaces.Repositories
     {
         Task<Customer?> GetCategoryByEmailAsync(string email);
         Task<Category> GetCategoryByIdAsync(int id);
+        Task AddCategoryAsync(Category category);
+        void DeleteCategory(Category category);
+
+
+
 
     }
 }
