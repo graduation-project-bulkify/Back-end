@@ -11,6 +11,7 @@ namespace Bulkify.Core.Interfaces.Repositories
     {
         Task<Supplier> GetSupplierByIdAsync(int id);
         Task<Supplier> GetSupplierByEmailAsync(string email);
+        Task<Product> GetProductByIdAsync(int id);
         Task AddProduct(Product product);
 
     }

@@ -158,6 +158,64 @@ namespace Bulkify.WebApi.Controllers
                 return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
             }
         }
+        [HttpPut("UpdateProduct/{id}")]
+        public async Task<IActionResult> UpdateProduct(int id, [FromBody] ProductAddModel model)
+        {
+            try
+            {
+                if (id < 1)
+                {
+                    return BadRequest(new { message = "Invalid product ID." });
+                }
+
+                if (!ModelState.IsValid)
+                {
+                    return BadRequest(ModelState);
+                }
+
+                // Check if the product exists
+                var product = await _supplierRepository.GetProductByIdAsync(id);
+                if (product == null)
+                {
+                    return NotFound(new { message = "Product not found." });
+                }
+
+                // Check if the supplier exists
+                var supplier = await _supplierRepository.GetSupplierByIdAsync(model.SupplierId);
+                if (supplier == null)
+                {
+                    return NotFound(new { message = "Supplier not found." });
+                }
+
+                // Check if the category exists
+                var category = await _categoryRepository.GetByIdAsync(model.CategoryId);
+                if (category == null)
+                {
+                    return NotFound(new { message = "Category not found." });
+                }
+
+                // Update the product fields
+                product.Name = model.Name;
+                product.Price = model.Price;
+                product.Quantity = model.Quantity;
+                product.ImageSource = model.ImageSource;
+                product.SupplierId = model.SupplierId;
+                product.CategoryId = model.CategoryId;
+                product.Supplier = supplier;
+                product.Category = category;
+
+                // Save changes to the repository
+                await _supplierRepository.SaveChangesAsync();
+
+                return Ok(new { Message = "Product updated successfully", ProductId = product.Id });
+            }
+            catch (Exception ex)
+            {
+                // Log error
+                _logger.LogError(ex, "An error occurred while updating the product.");
+                return StatusCode(StatusCodes.Status500InternalServerError, "An error occurred while processing your request.");
+            }
+        }
 
     }
 }

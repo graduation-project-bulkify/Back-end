@@ -30,5 +30,10 @@ namespace Bulkify.Repository.Repositories
         {
             await _context.Set<Product>().AddAsync(product);
         }
+
+        public async Task<Product> GetProductByIdAsync(int id)
+        {
+            return await _context.Products.FirstOrDefaultAsync(p => p.Id == id);
+        }
     }
 }
