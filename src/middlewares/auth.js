@@ -11,24 +11,33 @@ import { Supplier } from "../../database/models/supplier.model.js";
 export const auth = (userTypes = []) => {
   return async (req, res, next) => {
     try {
+      const hasAll = userTypes.includes("all");
       // Get token from either header
       const token =
         req.header("token") ||
         req.header("Authorization")?.replace("Bearer ", "");
 
       // Check if token exists
-      if (!token) {
+      if (!token && !hasAll) {
         throw throwError("Authentication token is required", 401);
       }
 
       // Verify token
-      const decoded = jwt.verify(token, process.env.JWT_SECRET);
-      if (!decoded?.email || !decoded?.userType) {
-        throw throwError("Invalid token payload", 401);
+      console.log("Token:", token);
+
+      if (!token && hasAll) {
+        // If 'all' is included, we don't need a token
+        req.user = 'anonymous';
+        req.userType = 'anonymous';
+        return next();
       }
+        const decoded = jwt.verify(token, process.env.JWT_SECRET);
+        if (!decoded?.email || !decoded?.userType ) {
+          throw throwError("Invalid token payload", 401);
+        }
 
       // Check if user type is allowed
-      if (!userTypes.includes(decoded.userType)) {
+      if (!userTypes.includes(decoded.userType) && !hasAll) {
         throw throwError("Unauthorized access", 403);
       }
 
